@@ -1,10 +1,12 @@
 package com.ocp7.client.controllers;
 
 import com.ocp7.client.beans.PretBean;
+import com.ocp7.client.beans.ProlongationBean;
 import com.ocp7.client.beans.UtilisateurBean;
 import com.ocp7.client.proxies.LivreMicroserviceProxy;
 import com.ocp7.client.beans.LivreBean;
 import com.ocp7.client.proxies.PretMicroserviceProxy;
+import com.ocp7.client.proxies.ProlongationMicroserviceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,10 @@ public class ClientController {
     @Autowired
     PretMicroserviceProxy pretMicroserviceProxy;
 
+    @Autowired
+    ProlongationMicroserviceProxy prolongationMicroserviceProxy;
+
+
     @RequestMapping(value = "livres", method = RequestMethod.GET)
     public String listLivres(Model model) {
 
@@ -35,8 +41,8 @@ public class ClientController {
     @RequestMapping(value = "showFormLivre", method = RequestMethod.GET)
     public String showFormForAddLivre(Model model) {
         LivreBean leLivreBean = new LivreBean();
-        List<String> categorieList= Arrays.asList("Sciences","Gestion","Litterature","Magazine","BD","Roman");
-        model.addAttribute("categorieList",categorieList);
+        List<String> categorieList = Arrays.asList("Sciences", "Gestion", "Litterature", "Magazine", "BD", "Roman");
+        model.addAttribute("categorieList", categorieList);
         model.addAttribute("leLivreBean", leLivreBean);
         return "livre-form";
     }
@@ -52,8 +58,8 @@ public class ClientController {
     @GetMapping(value = "updateFormLivre")
     public String showFormForUpdateLivre(@RequestParam("livreId") int theId, Model theModel) {
         LivreBean leLivre = livreMicroserviceProxy.get(theId);
-        List<String> categorieList= Arrays.asList("Sciences","Gestion","Litterature","Magazine","BD","Roman");
-        theModel.addAttribute("categorieList",categorieList);
+        List<String> categorieList = Arrays.asList("Sciences", "Gestion", "Litterature", "Magazine", "BD", "Roman");
+        theModel.addAttribute("categorieList", categorieList);
         theModel.addAttribute("leLivreBean", leLivre);
         return "livre-form";
     }
@@ -102,10 +108,36 @@ public class ClientController {
         return "pret-form";
 
     }
+
     @RequestMapping(value = "deletePret", method = RequestMethod.GET)
     public String deletePret(@RequestParam("pretId") int theId) {
 
         pretMicroserviceProxy.delete(theId);
         return "redirect:/prets";
     }
+
+    @RequestMapping(value = "prolongationsList", method = RequestMethod.GET)
+    public String prolongationsList(Model model) {
+        List<ProlongationBean> prolongationsList = prolongationMicroserviceProxy.prolongationsList();
+        model.addAttribute("prolongationsList", prolongationsList);
+        return "list-prolongations";
+
+    }
+
+    @RequestMapping(value = "pret/{pretId}/prolongation/updateProlongation", method = RequestMethod.GET)
+    public String getProlongation(@PathVariable("pretId") int pretId, @RequestParam("prolongationId") int prolongationId,Model model) {
+        ProlongationBean laProlongation = prolongationMicroserviceProxy.getProlongation(pretId, prolongationId);
+        model.addAttribute("laProlongation",laProlongation);
+        return "prolongation-form";
+    }
+
+    @RequestMapping(value = "pret/{pretId}/prolongation/saveFormProlo",method =RequestMethod.POST)
+    public String saveProlongation(@PathVariable("pretId") int pretId,@ModelAttribute("laProlongation")  ProlongationBean laProlongation,BindingResult result){
+        prolongationMicroserviceProxy.saveProlongation(pretId,laProlongation);
+        return "redirect:/prolongationsList";
+
+    }
+
+
+
 }

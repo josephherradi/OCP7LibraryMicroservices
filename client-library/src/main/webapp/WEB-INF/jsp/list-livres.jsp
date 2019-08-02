@@ -23,6 +23,12 @@
         					href="http://localhost:8080/prets"
         					class="button medium hpbottom">Liste des prêts</a>
         			</div>
+        			<br>
+        		<div style="text-align: left">
+                				<a
+                					href="http://localhost:8080/prolongationsList"
+                					class="button medium hpbottom">Liste des prolongations demandées</a>
+                			</div>
 
 		<br>
 			<input type="button" value="Ajouter livre"

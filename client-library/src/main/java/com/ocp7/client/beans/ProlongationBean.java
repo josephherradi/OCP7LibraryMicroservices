@@ -1,31 +1,23 @@
-package com.ocp7.webservices.Modele;
+package com.ocp7.client.beans;
 
-
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name="prolongation")
-public class Prolongation {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+public class ProlongationBean {
+
     private int prolongationId;
 
-    @Column(name="dateDemande",updatable = false)
     private Date dateDemande;
 
-    @Column(name="statut")
     private String statut;
 
-    @Column(name="pret_id")
     private int pretId;
 
-    @Column(name="nom_livre")
     private String nomLivre;
 
-    @Column(name="utilisateur")
     private String utilisateur;
 
+    public ProlongationBean() {
+    }
 
     public int getProlongationId() {
         return prolongationId;
@@ -75,17 +67,14 @@ public class Prolongation {
         this.utilisateur = utilisateur;
     }
 
-    public Prolongation() {
-    }
-
     @Override
     public String toString() {
-        return "Prolongation{" +
+        return "ProlongationBean{" +
                 "prolongationId=" + prolongationId +
                 ", dateDemande=" + dateDemande +
                 ", statut='" + statut + '\'' +
                 ", pretId=" + pretId +
-                ", nomLivre=" + nomLivre +
+                ", nomLivre='" + nomLivre + '\'' +
                 ", utilisateur='" + utilisateur + '\'' +
                 '}';
     }
