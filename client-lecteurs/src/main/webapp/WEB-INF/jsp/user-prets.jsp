@@ -68,7 +68,12 @@
 						<td>${tempPrets.dateRetour}</td>
 						<td>${tempPrets.pretProlonge}</td>
 
+                    <c:if test="${tempPrets.pretProlonge==false}" var="variable">
+
 						<td><a href="${prolongationLink}">Prolongation</a></td>
+
+						</c:if>
+
 
 
 					</tr>

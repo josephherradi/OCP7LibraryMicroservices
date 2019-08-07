@@ -59,8 +59,11 @@
                         <td>${prolongationsList.pretId}</td>
 						<td>${prolongationsList.nomLivre}</td>
 						<td>${prolongationsList.utilisateur}</td>
+                    <c:if test="${prolongationsList.statut != 'Validee'}" var="variable">
 
                     	<td><a href="${acceptLink}">accepter</a>
+
+						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
