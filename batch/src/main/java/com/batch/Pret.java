@@ -9,15 +9,11 @@ public class Pret {
     private String nomLivre;
     private Date datePret;
     private Date dateRetour;
-    private Boolean pretProlonge;
     private String utilisateur;
-    private Boolean retardPret;
-    private Boolean tagForUpdate;
-
+    private String mail;
 
     public Pret() {
     }
-
 
     public int getId() {
         return id;
@@ -59,14 +55,6 @@ public class Pret {
         this.dateRetour = dateRetour;
     }
 
-    public Boolean getPretProlonge() {
-        return pretProlonge;
-    }
-
-    public void setPretProlonge(Boolean pretProlonge) {
-        this.pretProlonge = pretProlonge;
-    }
-
     public String getUtilisateur() {
         return utilisateur;
     }
@@ -75,19 +63,13 @@ public class Pret {
         this.utilisateur = utilisateur;
     }
 
-    public Boolean getRetardPret() {
-        return retardPret;
+    public String getMail() {
+        return mail;
     }
 
-    public void setRetardPret(Boolean retardPret) {
-        this.retardPret = retardPret;
-    }
-
-    public Boolean getTagForUpdate() {
-        return tagForUpdate;
-    }
-
-    public void setTagForUpdate(Boolean tagForUpdate) {
-        this.tagForUpdate = tagForUpdate;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
+
+

@@ -6,6 +6,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 @EnableBatchProcessing
@@ -44,7 +46,8 @@ public class BatchConfiguration {
     public JdbcCursorItemReader<Pret> reader(){
         JdbcCursorItemReader<Pret> reader = new JdbcCursorItemReader<Pret>();
         reader.setDataSource(dataSource);
-        reader.setSql("SELECT * FROM pret");
+        reader.setSql("select a.id ,a.date_pret,a.date_retour,a.nom_livre,a.utilisateur, b.mail from " +
+                "pret  a inner join utilisateur  b on a.utilisateur=b.identifiant where date_retour < CURDATE();");
         reader.setRowMapper(new PretRowMapper());
 
         return reader;
@@ -57,16 +60,18 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public JdbcBatchItemWriter<Pret> writer(DataSource dataSource) {
-        return new JdbcBatchItemWriterBuilder<Pret>()
-                .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("UPDATE pret SET retard_pret= :retardPret")
-                .dataSource(dataSource)
-                .build();
+    public ItemWriter <Pret> writer(){
+        return new ItemWriter<Pret>() {
+            @Override
+            public void write(List<? extends Pret> list) throws Exception {
+
+            }
+        };
     }
 
+
     @Bean
-    public Step step1(JdbcBatchItemWriter<Pret> writer){
+    public Step step1(ItemWriter <Pret> writer){
         return stepBuilderFactory.get("step1").<Pret,Pret> chunk(10)
                 .reader(reader())
                 .processor(processor())
