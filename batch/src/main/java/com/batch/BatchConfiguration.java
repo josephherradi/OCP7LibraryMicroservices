@@ -7,17 +7,14 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
-import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
-import java.util.List;
 
 @Configuration
 @EnableBatchProcessing
@@ -31,6 +28,12 @@ public class BatchConfiguration {
 
     @Autowired
     public DataSource dataSource;
+
+    @Value("${spring.mail.username}")
+    private String sender;
+
+    private String attachment;
+
 
     @Bean
     public DataSource dataSource() {
@@ -56,26 +59,21 @@ public class BatchConfiguration {
 
     @Bean
     public PretItemProcessor processor(){
-        return new PretItemProcessor();
+        return new PretItemProcessor(sender,attachment);
     }
 
     @Bean
-    public ItemWriter <Pret> writer(){
-        return new ItemWriter<Pret>() {
-            @Override
-            public void write(List<? extends Pret> list) throws Exception {
-
-            }
-        };
+    public MailBatchItemWriter writer() {
+        MailBatchItemWriter writer = new MailBatchItemWriter();
+        return writer;
     }
 
-
     @Bean
-    public Step step1(ItemWriter <Pret> writer){
-        return stepBuilderFactory.get("step1").<Pret,Pret> chunk(10)
+    public Step step1(){
+        return stepBuilderFactory.get("step1").<Pret,MimeMessage> chunk(10)
                 .reader(reader())
                 .processor(processor())
-                .writer(writer)
+                .writer(writer())
                 .build();
     }
 
