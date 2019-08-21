@@ -37,6 +37,8 @@
 					<th>date de retour</th>
 					<th>pret deja prolonge?</th>
 					<th>utilisateur</th>
+					<th>Rendu?</th>
+
 
 
 
@@ -62,6 +64,8 @@
                         <td>${tempPrets.dateRetour}</td>
 						<td>${tempPrets.pretProlonge}</td>
 						<td>${tempPrets.utilisateur}</td>
+						<td>${tempPrets.rendu}</td>
+
 
 						<td><a href="${updateLink}">Update |</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('supprimer ce pret'))) return false">Delete</a>

@@ -27,19 +27,9 @@
                    <form:hidden path="dateRetour" />
                    <form:hidden path="nomLivre" />
                    <form:hidden path="tagForUpdate" />
+                   <form:hidden path="pretProlonge" />
 
 
-
-                        <div class="form-group">
-							<label for="pretProlonge" class="col-md-3 control-label">deja pret Prolonge?</label>
-							<div class="col-md-9">
-								<form:select path="pretProlonge" cssClass="form-control">
-									<form:option value="FALSE">FAUX</form:option>
-									<form:option value="TRUE">VRAI</form:option>
-
-								</form:select>
-							</div>
-						</div>
 
 
                        					  <div class="form-group">
@@ -51,6 +41,17 @@
                                               </form:select>
                                               </div>
                                               </div>
+
+                            <div class="form-group">
+    							<label for="rendu" class="col-md-3 control-label">pret rendu?</label>
+    							<div class="col-md-9">
+    								<form:select path="rendu" cssClass="form-control">
+    									<form:option value="FALSE">FAUX</form:option>
+    									<form:option value="TRUE">VRAI</form:option>
+
+    								</form:select>
+    							</div>
+    						</div>
 
 					<div class="form-group">
 						<div class="col-md-offset-3 col-md-9">

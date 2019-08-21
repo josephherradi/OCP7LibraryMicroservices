@@ -33,7 +33,6 @@ public class PretController {
     @RequestMapping(value = "showFormPret", method = RequestMethod.GET)
     public Pret showFormForAdd(@RequestParam("livreId") int theId){
         Pret lePret=new Pret();
-        lePret.setTagForUpdate(Boolean.FALSE);
         return lePret;
     }
 
@@ -51,6 +50,14 @@ public class PretController {
         lePret.setDateRetour(cal.getTime());
         livreService.saveLivre(leLivre);
         pretService.savePret(lePret);}
+
+        if(lePret.getTagForUpdate().equals(Boolean.TRUE)&&lePret.getRendu().equals(Boolean.TRUE)){
+            Livre leLivre=livreService.get(lePret.getIdLivre());
+            leLivre.setDisponibilite(leLivre.getDisponibilite()+1);
+            livreService.saveLivre(leLivre);
+            pretService.savePret(lePret);
+
+    }
     }
 
     @GetMapping(value = "updateFormPret")

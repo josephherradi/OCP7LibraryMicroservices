@@ -84,6 +84,7 @@ public class ClientController {
         LivreBean leLivreBean = livreMicroserviceProxy.get(theId);
         PretBean lePretBean = new PretBean();
         lePretBean.setTagForUpdate(Boolean.FALSE);
+        lePretBean.setPretProlonge(Boolean.FALSE);
         lePretBean.setIdLivre(leLivreBean.getId());
         lePretBean.setNomLivre(leLivreBean.getNom());
         model.addAttribute("lePretBean", lePretBean);

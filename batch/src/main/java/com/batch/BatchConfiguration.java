@@ -50,7 +50,7 @@ public class BatchConfiguration {
         JdbcCursorItemReader<Pret> reader = new JdbcCursorItemReader<Pret>();
         reader.setDataSource(dataSource);
         reader.setSql("select a.id ,a.date_pret,a.date_retour,a.nom_livre,a.utilisateur, b.mail from " +
-                "pret  a inner join utilisateur  b on a.utilisateur=b.identifiant where date_retour < CURDATE();");
+                "pret  a inner join utilisateur  b on a.utilisateur=b.identifiant where date_retour < CURDATE() and rendu=false;");
         reader.setRowMapper(new PretRowMapper());
 
         return reader;

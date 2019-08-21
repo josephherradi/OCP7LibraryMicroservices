@@ -20,6 +20,7 @@ public class Pret {
     private String utilisateur;
     private Boolean retardPret;
     private Boolean tagForUpdate;
+    private Boolean rendu;
 
 
     public Pret() {
@@ -97,6 +98,14 @@ public class Pret {
         this.dateRetour = dateRetour;
     }
 
+    public Boolean getRendu() {
+        return rendu;
+    }
+
+    public void setRendu(Boolean rendu) {
+        this.rendu = rendu;
+    }
+
     @Override
     public String toString() {
         return "Pret{" +
@@ -109,6 +118,7 @@ public class Pret {
                 ", utilisateur='" + utilisateur + '\'' +
                 ", retardPret=" + retardPret +
                 ", tagForUpdate=" + tagForUpdate +
+                ", rendu=" + rendu +
                 '}';
     }
 }
