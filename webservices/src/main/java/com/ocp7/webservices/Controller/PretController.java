@@ -6,6 +6,8 @@ import com.ocp7.webservices.Modele.Pret;
 import com.ocp7.webservices.Service.LivreService;
 import com.ocp7.webservices.Service.PretService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sun.font.TrueTypeFont;
 
@@ -37,7 +39,7 @@ public class PretController {
     }
 
     @PostMapping(value = "saveFormPret")
-    public void savePret(@RequestBody Pret lePret){
+    public ResponseEntity<Pret> savePret(@RequestBody Pret lePret){
         Date datVar=new Date();
         lePret.setDatePret(datVar);
         Calendar cal = Calendar.getInstance();
@@ -49,7 +51,9 @@ public class PretController {
         leLivre.setDisponibilite(leLivre.getDisponibilite()-1);
         lePret.setDateRetour(cal.getTime());
         livreService.saveLivre(leLivre);
-        pretService.savePret(lePret);}
+        pretService.savePret(lePret);
+
+        }
 
         if(lePret.getTagForUpdate().equals(Boolean.TRUE)&&lePret.getRendu().equals(Boolean.TRUE)){
             Livre leLivre=livreService.get(lePret.getIdLivre());
@@ -57,7 +61,9 @@ public class PretController {
             livreService.saveLivre(leLivre);
             pretService.savePret(lePret);
 
-    }
+        }
+        return new ResponseEntity<Pret>(lePret, HttpStatus.OK);
+
     }
 
     @GetMapping(value = "updateFormPret")

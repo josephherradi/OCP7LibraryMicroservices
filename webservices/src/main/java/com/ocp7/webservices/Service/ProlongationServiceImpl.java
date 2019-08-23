@@ -25,12 +25,12 @@ public class ProlongationServiceImpl implements ProlongationService {
     }
 
     @Override
-    public void saveProlongation(Integer preId,Prolongation laProlongation) {
+    public Prolongation saveProlongation(Integer preId,Prolongation laProlongation) {
 
         Pret lePret=pretDAO.findById(preId).orElse(null);
         laProlongation.setPretId(preId);
         laProlongation.setNomLivre(pretDAO.findById(preId).orElse(null).getNomLivre());
-        prolongationDAO.save(laProlongation);
+        return prolongationDAO.save(laProlongation);
     }
 
     @Override

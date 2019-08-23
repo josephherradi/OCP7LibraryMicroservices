@@ -19,8 +19,8 @@ public class PretServiceImpl implements PretService {
     }
 
     @Override
-    public void savePret(Pret lePret) {
-        pretDAO.save(lePret);
+    public Pret savePret(Pret lePret) {
+        return pretDAO.save(lePret);
 
     }
 

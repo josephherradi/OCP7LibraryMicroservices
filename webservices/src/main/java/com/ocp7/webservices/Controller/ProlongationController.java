@@ -5,6 +5,8 @@ import com.ocp7.webservices.Modele.Prolongation;
 import com.ocp7.webservices.Service.PretService;
 import com.ocp7.webservices.Service.ProlongationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,7 @@ public class ProlongationController {
     }
 
     @RequestMapping(value = "pret/{pretId}/prolongation/saveFormProlo",method =RequestMethod.POST)
-    public void saveProlongation(@PathVariable("pretId") int pretId,@RequestBody Prolongation laProlongation){
+    public ResponseEntity<Prolongation> saveProlongation(@PathVariable("pretId") int pretId, @RequestBody Prolongation laProlongation){
         Pret lePret=pretService.get(pretId);
         if(laProlongation.getStatut().equalsIgnoreCase("Validee")&&lePret.getPretProlonge().equals(Boolean.FALSE)){
             Calendar cal = Calendar.getInstance();
@@ -38,7 +40,8 @@ public class ProlongationController {
             pretService.savePret(lePret);
         }
 
-    prolongationService.saveProlongation(pretId,laProlongation);
+        Prolongation newProlongation=prolongationService.saveProlongation(pretId,laProlongation);
+        return new ResponseEntity<Prolongation>(newProlongation, HttpStatus.CREATED);
 
     }
 

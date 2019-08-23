@@ -29,8 +29,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public void saveUser(Utilisateur lutilisateur) {
-        utilisateurDAO.save(lutilisateur);
+    public Utilisateur saveUser(Utilisateur lutilisateur) {
+        return utilisateurDAO.save(lutilisateur);
 
     }
 

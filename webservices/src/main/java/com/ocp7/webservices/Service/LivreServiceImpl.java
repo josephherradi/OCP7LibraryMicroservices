@@ -18,8 +18,8 @@ public class LivreServiceImpl implements  LivreService {
     }
 
     @Override
-    public void saveLivre(Livre leLivre) {
-    livreDAO.save(leLivre);
+    public Livre saveLivre(Livre leLivre) {
+    return livreDAO.save(leLivre);
     }
 
     @Override

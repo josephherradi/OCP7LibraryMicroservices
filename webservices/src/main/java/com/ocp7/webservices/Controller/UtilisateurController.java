@@ -3,6 +3,8 @@ package com.ocp7.webservices.Controller;
 import com.ocp7.webservices.Modele.Utilisateur;
 import com.ocp7.webservices.Service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +30,10 @@ public class UtilisateurController {
     }
 
     @PostMapping(value = "saveFormUser")
-    public void saveUser(@RequestBody Utilisateur lutilisateur) {
-        utilisateurService.saveUser(lutilisateur);
+    public ResponseEntity<Utilisateur> saveUser(@RequestBody Utilisateur lutilisateur) {
+        Utilisateur nouvelUtilisateur=utilisateurService.saveUser(lutilisateur);
+        return new ResponseEntity<Utilisateur>(nouvelUtilisateur, HttpStatus.CREATED);
+
     }
 
     @RequestMapping(value = "utilisateurs", method = RequestMethod.GET)

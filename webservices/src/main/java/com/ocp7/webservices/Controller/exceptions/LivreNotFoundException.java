@@ -1,0 +1,13 @@
+package com.ocp7.webservices.Controller.exceptions;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+
+public class LivreNotFoundException extends RuntimeException{
+
+    public LivreNotFoundException(String message){
+        super(message);
+    }
+}
