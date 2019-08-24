@@ -1,5 +1,7 @@
 package com.ocp7.webservices.Controller;
 
+import com.ocp7.webservices.Controller.exceptions.ImpossibleAjouterProlongationException;
+import com.ocp7.webservices.Controller.exceptions.ProlongationNotFoundException;
 import com.ocp7.webservices.Modele.Pret;
 import com.ocp7.webservices.Modele.Prolongation;
 import com.ocp7.webservices.Service.PretService;
@@ -41,22 +43,31 @@ public class ProlongationController {
         }
 
         Prolongation newProlongation=prolongationService.saveProlongation(pretId,laProlongation);
+
+        if(laProlongation==null) throw new ImpossibleAjouterProlongationException("Erreur, impossible d'ajouter cette prolongation");
         return new ResponseEntity<Prolongation>(newProlongation, HttpStatus.CREATED);
 
     }
 
     @RequestMapping(value = "userprolongations",method = RequestMethod.GET)
     public List<Prolongation> userProlongations(String utilisateur){
-    return prolongationService.userProlongation(utilisateur);
+        List<Prolongation> userList=prolongationService.userProlongation(utilisateur);
+        if(userList==null) throw new ProlongationNotFoundException("Aucune prolongation n'existe");
+        return userList;
     }
 
     @RequestMapping(value="prolongationsList",method=RequestMethod.GET)
     public List<Prolongation> prolongationsList(){
-        return prolongationService.ProlongationList();
+        List<Prolongation> prolongList=prolongationService.ProlongationList();
+        if(prolongList==null) throw new ProlongationNotFoundException("aucune prolongation n'existe");
+
+        return prolongList ;
     }
 
     @RequestMapping(value="pret/{pretId}/prolongation/updateProlongation",method=RequestMethod.GET)
     public Prolongation getProlongation(@PathVariable("pretId") int pretId,@RequestParam("prolongationId") int prolongationId) {
-        return prolongationService.getProlongation(prolongationId);
+        Prolongation laProlongation=prolongationService.getProlongation(prolongationId);
+        if(laProlongation==null) throw new ProlongationNotFoundException("cette prolongation n'existe pas");
+        return laProlongation;
     }
 }

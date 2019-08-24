@@ -1,5 +1,7 @@
 package com.ocp7.webservices.Controller;
 
+import com.ocp7.webservices.Controller.exceptions.ImpossibleAjouterPretException;
+import com.ocp7.webservices.Controller.exceptions.PretNotFoundException;
 import com.ocp7.webservices.DAO.PretDAO;
 import com.ocp7.webservices.Modele.Livre;
 import com.ocp7.webservices.Modele.Pret;
@@ -29,7 +31,11 @@ public class PretController {
 
     @RequestMapping(value="prets", method= RequestMethod.GET)
     public List<Pret> listPrets(){
-        return pretService.listePrets();
+
+        List <Pret>list=pretService.listePrets();
+        if(list==null) throw new PretNotFoundException("Aucun prêt n'existe");
+
+        return list ;
     }
 
     @RequestMapping(value = "showFormPret", method = RequestMethod.GET)
@@ -62,6 +68,8 @@ public class PretController {
             pretService.savePret(lePret);
 
         }
+        if(lePret==null) throw new ImpossibleAjouterPretException("Impossible d'ajouter ce pret");
+
         return new ResponseEntity<Pret>(lePret, HttpStatus.OK);
 
     }
@@ -70,6 +78,7 @@ public class PretController {
     public Pret showFormForUpdate(@RequestParam("pretId") int id){
         Pret lePret=pretService.get(id);
         lePret.setTagForUpdate(Boolean.TRUE);
+        if(lePret==null) throw new PretNotFoundException("Ce pret n'existe pas");
         return lePret;
     }
 
@@ -80,13 +89,15 @@ public class PretController {
 
     @RequestMapping(value = "userprets",method = RequestMethod.GET)
     public List<Pret> userPrets(String utilisateur){
-
-        return pretService.userPrets(utilisateur);
+        List<Pret> userList=pretService.userPrets(utilisateur);
+        if(userList==null) throw new PretNotFoundException("Aucun pret n'existe");
+        return userList;
     }
 
     @GetMapping(value = "getPret")
     public Pret getPret(@RequestParam("pretId") int id){
         Pret lePret=pretService.get(id);
+        if(lePret==null) throw new PretNotFoundException("Ce pret n'existe pas");
         return lePret;
     }
 
