@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -54,7 +56,7 @@
 
 					<tr>
 						<td>${prolongationsList.prolongationId}</td>
-						<td>${prolongationsList.dateDemande}</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${prolongationsList.dateDemande}" /></td>
 						<td>${prolongationsList.statut}</td>
                         <td>${prolongationsList.pretId}</td>
 						<td>${prolongationsList.nomLivre}</td>
