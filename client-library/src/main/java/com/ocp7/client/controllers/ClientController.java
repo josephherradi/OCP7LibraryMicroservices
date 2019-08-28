@@ -7,12 +7,15 @@ import com.ocp7.client.proxies.LivreMicroserviceProxy;
 import com.ocp7.client.beans.LivreBean;
 import com.ocp7.client.proxies.PretMicroserviceProxy;
 import com.ocp7.client.proxies.ProlongationMicroserviceProxy;
+import com.ocp7.client.proxies.UtilisateurMicroserviceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +31,21 @@ public class ClientController {
 
     @Autowired
     ProlongationMicroserviceProxy prolongationMicroserviceProxy;
+
+    @Autowired
+    UtilisateurMicroserviceProxy utilisateurMicroserviceProxy;
+
+    public static String encrypt(String source) {
+        String md5 = null;
+        try {
+            MessageDigest mdEnc = MessageDigest.getInstance("MD5");
+            mdEnc.update(source.getBytes(), 0, source.length());
+            md5 = new BigInteger(1, mdEnc.digest()).toString(16);
+        } catch (Exception ex) {
+            return null;
+        }
+        return md5;
+    }
 
 
     @RequestMapping(value = "livres", method = RequestMethod.GET)
@@ -138,6 +156,28 @@ public class ClientController {
         return "redirect:/prolongationsList";
 
     }
+
+    @RequestMapping(value = "registrationForm", method = RequestMethod.GET)
+    public String showFormRegistration(Model model) {
+        UtilisateurBean utilisateurBean = new UtilisateurBean();
+        model.addAttribute("utilisateurBean", utilisateurBean);
+        return "utilisateur-form";
+    }
+
+    @RequestMapping(value = "saveFormUser",method = RequestMethod.POST)
+    public String saveFormUser(@ModelAttribute("utilisateurBean") UtilisateurBean utilisateurBean){
+        utilisateurBean.setPassword(encrypt(utilisateurBean.getPassword()));
+        utilisateurMicroserviceProxy.saveUser(utilisateurBean);
+        return "redirect:/utilisateurs";
+    }
+
+    @RequestMapping(value = "utilisateurs",method = RequestMethod.GET)
+    public String usersList(Model model) {
+        List<UtilisateurBean> usersList = utilisateurMicroserviceProxy.listUtilisateurs();
+        model.addAttribute("usersList",usersList);
+        return "list-utilisateurs";
+    }
+
 
 
 

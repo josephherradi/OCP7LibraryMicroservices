@@ -52,15 +52,12 @@ public class ProlongationController {
     @RequestMapping(value = "userprolongations",method = RequestMethod.GET)
     public List<Prolongation> userProlongations(String utilisateur){
         List<Prolongation> userList=prolongationService.userProlongation(utilisateur);
-        if(userList==null) throw new ProlongationNotFoundException("Aucune prolongation n'existe");
         return userList;
     }
 
     @RequestMapping(value="prolongationsList",method=RequestMethod.GET)
     public List<Prolongation> prolongationsList(){
         List<Prolongation> prolongList=prolongationService.ProlongationList();
-        if(prolongList==null) throw new ProlongationNotFoundException("aucune prolongation n'existe");
-
         return prolongList ;
     }
 

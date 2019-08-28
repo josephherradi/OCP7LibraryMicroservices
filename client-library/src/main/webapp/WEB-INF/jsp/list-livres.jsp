@@ -31,10 +31,23 @@
                 			</div>
 
 		<br>
+		        		<div style="text-align: left">
+                        				<a
+                        					href="http://localhost:8080/utilisateurs"
+                        					class="button medium hpbottom">Liste des utilisateurs</a>
+                        			</div>
+
+        		<br>
 			<input type="button" value="Ajouter livre"
         					onclick="window.location.href='showFormLivre'; return false;"
         					class="btn btn-primary" />
          <br>
+         <br>
+
+         <input type="button" value="Ajouter utilisateur"
+                 					onclick="window.location.href='registrationForm'; return false;"
+                 					class="btn btn-primary" />
+                  <br>
 
 			<h2>Liste des livres</h2>
 
