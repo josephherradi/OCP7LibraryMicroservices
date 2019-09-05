@@ -40,14 +40,14 @@
                     <div class="form-group">
                                                 <label for="nomLivre" class="col-md-3 control-label">nomLivre</label>
                                                    <div class="col-md-9">
-                                                    <form:input path="nomLivre" cssClass="form-control" />
+                                                    <form:input  path="nomLivre" cssClass="form-control" readonly="true"  />
                                                     </div>
                                               </div>
                                               <br>
                     <div class="form-group">
                       <label for="utilisateur" class="col-md-3 control-label">utilisateur</label>
                          <div class="col-md-9">
-                          <form:input path="utilisateur" cssClass="form-control" />
+                          <form:input  path="utilisateur" cssClass="form-control" readonly="true"/>
                           </div>
                     </div>
 
