@@ -52,7 +52,7 @@ public class PretController {
         cal.setTime(datVar);
         cal.add(Calendar.WEEK_OF_MONTH,4);
         lePret.setDateRetour(cal.getTime());
-        if( lePret.getTagForUpdate().equals(Boolean.FALSE)){
+        if( lePret.getTagForUpdate().equals(Boolean.FALSE) && (livreService.get(lePret.getIdLivre())).getDisponibilite()!=0){
         Livre leLivre=livreService.get(lePret.getIdLivre());
         leLivre.setDisponibilite(leLivre.getDisponibilite()-1);
         lePret.setDateRetour(cal.getTime());
@@ -68,7 +68,8 @@ public class PretController {
             pretService.savePret(lePret);
 
         }
-        if(lePret==null) throw new ImpossibleAjouterPretException("Impossible d'ajouter ce pret");
+        if(lePret==null || (livreService.get(lePret.getIdLivre())).getDisponibilite()==0) throw new ImpossibleAjouterPretException("Impossible d'ajouter ce pret");
+
 
         return new ResponseEntity<Pret>(lePret, HttpStatus.OK);
 
