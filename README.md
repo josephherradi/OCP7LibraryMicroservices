@@ -46,7 +46,7 @@ Le lancement des modules batch et Api Rest se fait par la commande suivante
 java -jar batch.jar
 ```
 Pour déployer les applications WAR client-library.war et client-lecteurs sur Tomcat, il est nécessaire de copier le fichier WAR dans le dossier webapps de Tomcat et de personnaliser les champs docBase et port des balises suivantes de server.xml (dans le dossier conf de Tomcat)
-Dans docBase, indiquez client-teurs client-lecteurs.WAR
+Dans docBase, indiquez client-lecteurs pour client-lecteurs.WAR
 ```
  <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
     <Context docBase="client-library" path="" reloadable="true" />
@@ -81,7 +81,7 @@ http://localhost:8082/login
 ```
 Utilisez pour la démo
 login: "lecteurTest" ou "userTest"
-mdp: 12345 
+mdp: 12345
 
 Le client admin est accessible à:
 ```
