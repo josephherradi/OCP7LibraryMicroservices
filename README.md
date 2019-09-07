@@ -1,4 +1,4 @@
-# Projet de système d'information d'une bibliotheques
+# Projet de système d'information d'une bibliotheque
 La solution technique proposée comprend:
 * Une API Rest qui implémente la logique métier, l'accès et la lecture des données et le routage URI.
 * Un client à destination des lecteurs.
@@ -68,7 +68,7 @@ tail -f logs/catalina.out
 
 ## URLs
 
-L'Api rest webservices est déployées sur le port 9092
+L'Api rest webservices est déployée sur le port 9092
 Pour consulter la liste des livres au format JSON
 ```
 http://localhost:9092/livres
@@ -79,6 +79,9 @@ Le client lecteurs est accessible à:
 ```
 http://localhost:8082/login
 ```
+Utilisez pour la démo
+login: "lecteurTest" ou "userTest"
+mdp: 12345 
 
 Le client admin est accessible à:
 ```
@@ -87,4 +90,4 @@ http://localhost:8080/livres
 
 ## Auteur
 
-Joseph Herradi 
+Joseph Herradi
