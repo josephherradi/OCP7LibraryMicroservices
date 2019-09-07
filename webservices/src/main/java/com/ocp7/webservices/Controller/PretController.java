@@ -56,6 +56,7 @@ public class PretController {
         Livre leLivre=livreService.get(lePret.getIdLivre());
         leLivre.setDisponibilite(leLivre.getDisponibilite()-1);
         lePret.setDateRetour(cal.getTime());
+        lePret.setRendu(Boolean.FALSE);
         livreService.saveLivre(leLivre);
         pretService.savePret(lePret);
 
@@ -65,6 +66,8 @@ public class PretController {
             Livre leLivre=livreService.get(lePret.getIdLivre());
             leLivre.setDisponibilite(leLivre.getDisponibilite()+1);
             livreService.saveLivre(leLivre);
+            lePret.setRendu(Boolean.TRUE);
+            lePret.setDateRetour(new Date());
             pretService.savePret(lePret);
 
         }

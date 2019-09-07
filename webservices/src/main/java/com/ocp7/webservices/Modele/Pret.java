@@ -18,7 +18,6 @@ public class Pret {
     private Date dateRetour;
     private Boolean pretProlonge;
     private String utilisateur;
-    private Boolean retardPret;
     private Boolean tagForUpdate;
     private Boolean rendu;
 
@@ -74,13 +73,6 @@ public class Pret {
         this.nomLivre = nomLivre;
     }
 
-    public Boolean getRetardPret() {
-        return retardPret;
-    }
-
-    public void setRetardPret(Boolean retardPret) {
-        this.retardPret = retardPret;
-    }
 
     public Boolean getTagForUpdate() {
         return tagForUpdate;
@@ -116,7 +108,6 @@ public class Pret {
                 ", dateRetour=" + dateRetour +
                 ", pretProlonge=" + pretProlonge +
                 ", utilisateur='" + utilisateur + '\'' +
-                ", retardPret=" + retardPret +
                 ", tagForUpdate=" + tagForUpdate +
                 ", rendu=" + rendu +
                 '}';

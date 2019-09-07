@@ -51,6 +51,8 @@
 					<th>date du pret</th>
 					<th>date de retour</th>
 					<th>pret deja prolonge?</th>
+					<th>rendu?</th>
+
 
 
 
@@ -69,8 +71,10 @@
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${tempPrets.datePret}" /> </td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${tempPrets.dateRetour}" /> </td>
 						<td>${tempPrets.pretProlonge}</td>
+						<td>${tempPrets.rendu}</td>
 
-                    <c:if test="${tempPrets.pretProlonge==false}" var="variable">
+
+                    <c:if test="${tempPrets.pretProlonge==false && tempPrets.rendu==false}" var="variable">
 
 						<td><a href="${prolongationLink}">Prolongation</a></td>
 

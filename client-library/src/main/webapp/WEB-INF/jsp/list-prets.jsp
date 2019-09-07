@@ -68,10 +68,13 @@
 						<td>${tempPrets.utilisateur}</td>
 						<td>${tempPrets.rendu}</td>
 
+                    <c:if test="${tempPrets.rendu==false}" var="variable">
 
 						<td><a href="${updateLink}">Update |</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('supprimer ce pret'))) return false">Delete</a>
 						</td>
+					</c:if>
+
 					</tr>
 				</c:forEach>
 			</table>

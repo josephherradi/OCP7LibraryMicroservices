@@ -33,7 +33,7 @@ public class ProlongationController {
     @RequestMapping(value = "pret/{pretId}/prolongation/saveFormProlo",method =RequestMethod.POST)
     public ResponseEntity<Prolongation> saveProlongation(@PathVariable("pretId") int pretId, @RequestBody Prolongation laProlongation){
         Pret lePret=pretService.get(pretId);
-        if(laProlongation.getStatut().equalsIgnoreCase("Validee")&&lePret.getPretProlonge().equals(Boolean.FALSE)){
+        if(laProlongation.getStatut().equalsIgnoreCase("Validee")&&lePret.getPretProlonge().equals(Boolean.FALSE)&&lePret.getRendu().equals(Boolean.FALSE)){
             Calendar cal = Calendar.getInstance();
             cal.setTime(lePret.getDateRetour());
             cal.add(Calendar.WEEK_OF_MONTH,4);
@@ -44,7 +44,7 @@ public class ProlongationController {
 
         Prolongation newProlongation=prolongationService.saveProlongation(pretId,laProlongation);
 
-        if(laProlongation==null) throw new ImpossibleAjouterProlongationException("Erreur, impossible d'ajouter cette prolongation");
+        if(laProlongation==null || lePret.getRendu().equals(Boolean.TRUE)) throw new ImpossibleAjouterProlongationException("Erreur, impossible d'ajouter cette prolongation");
         return new ResponseEntity<Prolongation>(newProlongation, HttpStatus.CREATED);
 
     }
