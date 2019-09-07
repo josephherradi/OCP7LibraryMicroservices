@@ -6,6 +6,7 @@
 
 	<groupId>com.ocp7</groupId>
 	<artifactId>client-library</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>client-library</name>
 	<description>Demo project for Spring Boot</description>
