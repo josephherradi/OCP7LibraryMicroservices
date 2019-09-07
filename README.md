@@ -73,6 +73,9 @@ Pour consulter la liste des livres au format JSON
 ```
 http://localhost:9092/livres
 ```
+Rest Api Spring security basic authentication :
+login=utilisateur
+pwd=mdp
 
 Le client lecteurs est accessible à:
 
